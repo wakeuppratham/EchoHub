@@ -17,8 +17,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", userRoutes);
 
-app.user(notFound)
-app.user(errorHandler)
+app.use(notFound)
+app.use(errorHandler)
 
 //using port number from .env file
 const PORT = process.env.PORT || 5000;
