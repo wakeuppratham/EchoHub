@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const userRoutes = require('./routes/userRoutes');
+const chatRoutes = require('./routes/chatRoutes');
+
 
 app.use(express.json());
 
@@ -12,6 +14,7 @@ app.get("/", (req, res) => {
 
 //Routes
 app.use('/api/user', userRoutes);
+app.use('/api/chat',chatRoutes);
 
 //error handling
 app.use(notFound);
