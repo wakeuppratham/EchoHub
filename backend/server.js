@@ -5,6 +5,8 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 
+const messageRoutes = require('./routes/messageRoutes');
+
 
 app.use(express.json());
 
@@ -15,6 +17,8 @@ app.get("/", (req, res) => {
 //Routes
 app.use('/api/user', userRoutes);
 app.use('/api/chat',chatRoutes);
+
+app.use('/api/message',messageRoutes);
 
 //error handling
 app.use(notFound);
