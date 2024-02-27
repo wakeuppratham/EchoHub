@@ -2,6 +2,24 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
 
+// /api/user?search=pulkit
+const allUsers = asyncHandler(async (req, res) => {
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+        _id: { $ne: req.user._id }, // Exclude current user
+      }
+    : { _id: { $ne: req.user._id } };
+
+  const users = await User.find(keyword);
+  res.send(users);
+});
+
+
+
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
 
@@ -57,20 +75,6 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-// /api/user?search=pulkit
-const allUsers = asyncHandler(async (req, res) => {
-  const keyword = req.query.search
-    ? {
-        $or: [
-          { name: { $regex: req.query.search, $options: "i" } }, // option i for case insensitive
-          { email: { $regex: req.query.search, $options: "i" } },
-        ],
-      }
-    : {};
 
-  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-  res.send(users);
-  // console.log(keyword);
-});
 
 module.exports = { registerUser, authUser, allUsers };

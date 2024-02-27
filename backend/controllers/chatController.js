@@ -36,14 +36,14 @@ const accessChat = asyncHandler(async (req, res) => {
         users: [req.user._id, userId],
       };
 
-      const createdChat = await Chatm.create(chatData);
+      const createdChat = await Chat.create(chatData);
 
       const fullChat = await Chat.findOne({ _id: createdChat._id }).populate(
         "users",
         "-password"
       );
 
-      res.status(200).send(fullChat);
+      res.status(200).json(fullChat);
     }
   } catch (error) {
     console.error("Error accessing chat:", error.message);
@@ -157,8 +157,10 @@ const removeFromGroup = asyncHandler(async (req, res) => {
     },
     { new: true }
   )
-    .populate("users", "-pasword")
+    .populate("users", "-password")
     .populate("groupAdmin", "-password");
+  
+
 
   if (!removed) {
     res.status(404);
