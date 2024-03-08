@@ -40,7 +40,7 @@ const Signup = () => {
     ) {
       const data = new FormData();
       data.append("file", pics);
-      data.append("upload_preset", "echo-hub");
+      data.append("upload_preset", "echo-hub"); 
       data.append("cloud_name", "dsus6juuo");
       fetch("https://api.cloudinary.com/v1_1/dsus6juuo/image/upload", {
         method: "post",
