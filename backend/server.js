@@ -4,6 +4,7 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 app.use(cors({
@@ -13,9 +14,7 @@ app.use(cors({
 const messageRoutes = require('./routes/messageRoutes');
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("API is Running Successfully");
-});
+
 
 //Routes
 app.use('/api/user', userRoutes);
@@ -26,6 +25,21 @@ app.use('/api/message',messageRoutes);
 //error handling
 app.use(notFound);
 app.use(errorHandler);
+
+//Deployment
+const __dirname1 = path.resolve();
+if(process.env.NODE_ENV==="production"){
+  app.use(express.static(path.join(__dirname1,"/frontend/build")));
+
+  app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname1,"frontend","build","index.html"));
+  });
+} else{
+  app.get("/",(req,res)=>{
+    res.send("API is running");
+  });
+}
+
 
 const PORT = process.env.PORT || 5000;
 

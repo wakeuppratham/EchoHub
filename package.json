@@ -4,7 +4,8 @@
   "description": "chat app using mern stack",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon backend/server.js"
+    "start": "node backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",
     "nodemon": "^3.0.2",
+    "path": "^0.12.7",
     "socket.io": "^4.7.4"
   }
 }
