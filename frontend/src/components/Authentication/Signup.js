@@ -103,7 +103,7 @@ const navigate = useNavigate();
       };
 
       const { data } = await axios.post(
-        "/api/user",
+        `${process.env.REACT_APP_DEPLOYMENT_URL}/api/user`,
         { name, email, password, pic },
         config
       );

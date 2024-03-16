@@ -1,13 +1,16 @@
-require("dotenv").config();
 const express = require("express");
 const app = express();
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
+const cors = require("cors");
+require("dotenv").config();
+
+app.use(cors({
+  origin:"*",
+}));
 
 const messageRoutes = require('./routes/messageRoutes');
-
-
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -75,3 +78,5 @@ const io = require("socket.io")(server, {
       socket.leave(userData._id);
     });
   });
+
+
