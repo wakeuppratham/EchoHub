@@ -3,13 +3,9 @@ const app = express();
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
-const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
 
-app.use(cors({
-  origin:"*",
-}));
 
 const messageRoutes = require('./routes/messageRoutes');
 app.use(express.json());
@@ -20,11 +16,7 @@ app.use(express.json());
 app.use('/api/user', userRoutes);
 app.use('/api/chat',chatRoutes);
 
-app.use('/api/message',messageRoutes);
-
-//error handling
-app.use(notFound);
-app.use(errorHandler);
+app.use('/api/message', messageRoutes);
 
 //Deployment
 const __dirname1 = path.resolve();
@@ -39,6 +31,11 @@ if(process.env.NODE_ENV==="production"){
     res.send("API is running");
   });
 }
+
+//error handling
+app.use(notFound);
+app.use(errorHandler);
+
 
 
 const PORT = process.env.PORT || 5000;

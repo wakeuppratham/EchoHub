@@ -4,8 +4,8 @@
   "description": "chat app using mern stack",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "build": "npm install --legacy-peer-deps"
+    "start": "nodemon backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
   "license": "ISC",
