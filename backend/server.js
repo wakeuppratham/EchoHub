@@ -51,7 +51,7 @@ connectDB();
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://echohub-1ngf.onrender.com",
+    origin: "https://echohub-deploy.onrender.com",
     // credentials: true,
   },
 });
