@@ -4,14 +4,11 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const path = require("path");
-const job = require("./cron/cron");
 require("dotenv").config();
 
 const messageRoutes = require("./routes/messageRoutes");
 app.use(express.json());
 
-//cron job for render
-job.start();
 
 //Routes
 app.use("/api/user", userRoutes);
